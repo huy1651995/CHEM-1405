@@ -27,10 +27,10 @@
        <form class="input-from">
            <div class="form-group">
             <div class="row"> 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="Cong thuc">Cong thuc</label>
                 </div>       
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <input type="text" class="form-control" id="cong-thuc" oninput="calculate()">
                 <small class="form-text text-muted"> Example: H2O, Ca(OH)2</small>
 
@@ -87,11 +87,22 @@
 
 <script>
 
-    var periodicTable = {
-            "Ca":20,
-            "O":14.999,
-            "H":1.008
+    class Element {
+        constructor(name,weight){
+            this.name=name;
+            this.weight=weight;
+        }
     }
+
+    var a = new Element("Ca",20);
+
+    var periodicTable = [
+        new Element("Ca",40.078),
+        new Element("O",15.999),
+        new Element("H",1.0008),
+        new Element("C",12.011),
+        new Element("P",30.974),
+        new Element("Cl",35.45)]
 
     function calculate() {
         var ct = document.getElementById('cong-thuc').value;
@@ -99,107 +110,128 @@
         console.log("ct : ",ct);
 
         var a = "H";
-        var aa = elementDectection("Ca3(PO4)2")
-        console.log(aa);
+        var aa = elementDectection(ct)
+
+        var b = periodicTable.filter(w=>w.name=="Ca");
+
+        var ccc = calculateMassAndPercent(aa);
+
+        console.log(ccc);
+        
+
+        
 
     }
-    function MolecularWeight(formula) {
 
-        var result =[];
+    function calculateMassAndPercent(aElement)
+    {
+        var total = 0;
+        var percentArray = [];
 
-        if(formula)
-         {
-            var onHold =[];
-            var index = 1;
-            var isOpen = false;
+        Array.prototype.forEach.call(aElement,e=>{
+            var a = periodicTable.filter(w=>w.name==e.element);
+            total+=a[0].weight*e.count;            
+        })
 
-            Array.prototype.forEach.call(formula,async e=>{                
-                console.log(e);
-                if(e.match(/[A-Z]/))
-                {
-                    if(onHold && isOpen == false)
-                    {
-                        console.log("Push");
-                        Array.prototype.forEach.call(onHold, el =>{
-                            result.push({
-                                "element":el,
-                                "index":index
-                            })
-                        })
-                        onHold=[];
-                        index=1;
-                    }
-                        
-                   await onHold.push(e);
-                   
-                    
-                }else if(e.match(/[a-z]/))
-                {
-                    console.log("a-z:" + e);
-                    
-                    onHold[onHold.length-1] +=e;
-                    
+        
+        Array.prototype.forEach.call(aElement,e=>{
 
-                }else if(e.match(/[0-9]/)){
-                    console.log("number:" +e);
-                  index=e;
-                }
-                else if(e =="(")
-                {
-                    if(onHold && isOpen == false)
-                    {
-                        console.log("Push");
-                        Array.prototype.forEach.call(onHold, el =>{
-                            result.push({
-                                "element":el,
-                                "index":index
-                            })
-                        })
-                        onHold=[];
-                        index=1;
-                    } 
+            var temp = periodicTable.find(w=>w.name==e.element);
 
-                    isOpen = true;
-                }
-                else if(e==")")
-                {   ifOpen =false}
+            var percent = ((temp.weight*e.count)*100/total).toFixed(4);
 
-                
+            percentArray.push({"element":e.element,"percent": percent})
+        })
 
-                // Push all of element exited on onHold to result
-                
-
-
-            })
-
-            if(onHold)
-                {
-                    console.log("vo trong ne");
-                    console.log(onHold);
-                    Array.prototype.forEach.call(onHold, el =>{
-                        console.log("index:"+index)
-                            result.push({
-                                "element":el,
-                                "index":index
-                            })
-                        })
-                        onHold=[];
-                }
-
-
-            console.log(result);
-            return result;
-            //return formula.split(/(?=[A-Z][0-9])/);
-            //return formula.match(/[A-Z][a-z]+/g);
-         }  else
-            return [];
-            
-       
+        return {"total":total,"percentArray":percentArray};
     }
 
+
+    /* Input Ca(OH)2
+     Output: [{"element":"Ca","count":1},
+                {"element":"O","count":2},
+                {"element":"H","count":2}]
+    */
     function elementDectection(formula){
-        var a = formula.split(/(?=[A-Z]|[0-9])/);
-        console.log(a);
+       var hold = [];
+        var index = 1;
+        var isOpen = false;
+        var isOneTime = true;
+
+        var result = [];
+
+        Array.prototype.forEach.call(formula,e=>{
+
+            if(e.match(/[A-Z]/)) // Uppercase
+            {
+
+                hold.push(e);
+
+            }else if(e.match(/[a-z]/)) //lowercase
+            {
+                if(hold)
+                { hold[hold.length-1] += e;   }
+            }
+            else if(e.match(/[0-9]/)) //Number
+            {
+                if(isOneTime)
+                {
+                    var temp = hold[hold.length-1];
+                    for(let i = 0;i<e-1;i++)
+                    {
+                        hold.push(temp);
+                    }
+
+                }else{
+                    
+                    for(let i = 0;i<e;i++)
+                    {                                            
+                    Array.prototype.forEach.call(hold,el=>{                        
+                        result.push(el);
+                    })                    
+                
+                    }
+                    hold=[];
+                }
+
+                isOneTime = true;
+
+            }
+            else if(e=='(')
+            {
+                if(hold){
+                    Array.prototype.forEach.call(hold,el => {
+                        result.push(el);
+                    });
+                    hold=[];
+                }
+                isOpen = true;
+            }else if(e==')' && isOpen)
+            {               
+                isOneTime = false;
+                isOpen=false;
+            }
+        })
+
+
+        Array.prototype.forEach.call(hold,e=>{
+            result.push(e);
+        })
+
+        hold=[];
+
+        var unique = result.filter((v,i,e)=>{return e.indexOf(v)===i;})
+        var distinctElement =  [];
+        Array.prototype.forEach.call(unique,e=>{
+
+            var count = result.filter(k=>k==e).length;
+            distinctElement.push( {"element":e,"count":count}); 
+        })
+
+        
+        
+        return distinctElement;
+        
     }
 
 
