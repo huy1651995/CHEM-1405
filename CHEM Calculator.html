@@ -80,26 +80,39 @@
          </div>
      
          <div class="card col-md-8" style="border: solid 2px;">
-            <div class='row'>
-                <h4 class="col-md-12" id='show-compound'> Compound: xxxx</h4>
-                <div class="col-md-12" id='one-mole'> 1 mole = xxxx g</div>
-                <div class="col-md-12" id='one-gram'> 1 gram = xxxx  mole</div>
+            <div class='row' style='border-bottom: solid 1px;'>
+                <h4 class="col-md-4" id='show-compound'> Compound: xxxx</h4>
+                <h4 class="col-md-8" id='atom-name'></h4>
+                <div class="col-md-4" >
+                <p id='one-mole'>1 mole = xxxx g</p>     
+                <p id='one-gram'>1 gram = xxxx  mole</p>     
+                </div>
+                <div class="col-md-8" id='show-infor'> 
+                    <div class="row" style="border-bottom: solid 1px;">
+                        <p class="col-md-4">
+                            element
+                        </p>
+                        <div class="col-md-4">
+                            percent
+                        </div>
+                        <div class="col-md-4">
+                            number of atoms
+                        </div>
+                    </div>
+                   
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-2" > element</div>
-                <div class="col-md-2" > percent</div>
-                <div class="col-md-2" > number of atoms</div>
-                <div class="col-md-2" > mass of atom</div>
-                <div class="col-md-2" > weight of atom</div>
+            <div class="row" style="border: solid 1px;">
+                <div class="col-md-2" > Element</div>                
+                <div class="col-md-2" > Percent</div>                
+                <div class="col-md-2" > Mass of atom</div>
+                <div class="col-md-2" > Weight of atom</div>
+                <div class="col-md-2" > Mole of atom</div>
+                <div class="col-md-2" > Molecules of atom</div>
             </div>
             <div class='row' id='show-case'>
 
             </div>
-
-                
-            
-            
-     
          </div>
     </div>
     
@@ -135,8 +148,10 @@
 	<script>
 
     class Element {
-        constructor(name,weight){
-            this.name=name;
+        constructor(atomicNumber,symbol,name,weight){
+            this.atomic_number=atomicNumber;
+            this.symbol=symbol;
+            this.name=name
             this.weight=weight;
         }
     }
@@ -144,20 +159,132 @@
     var a = new Element("Ca",20);
 
     var periodicTable = [
-        new Element("Ca",40.078),
-        new Element("O",15.999),
-        new Element("H",1.0008),
-        new Element("C",12.011),
-        new Element("P",30.974),
-        new Element("Cl",35.45)]
+    new Element('1','H','Hydrogen',1.008),
+new Element('2','He','Helium',4.003),
+new Element('3','Li','Lithium',6.941),
+new Element('4','Be','Beryllium',9.012),
+new Element('5','B','Boron',10.81),
+new Element('6','C','Carbon',12.011),
+new Element('7','N','Nitrogen',14.007),
+new Element('8','O','Oxygen',15.999),
+new Element('9','F','Fluorine',18.998),
+new Element('10','Ne','Neon',20.179),
+new Element('11','Na','Sodium',22.99),
+new Element('12','Mg','Magnesium',24.305),
+new Element('13','Al','Aluminum',26.982),
+new Element('14','Si','Silicon',28.086),
+new Element('15','P','Phosphorus',30.974),
+new Element('16','S','Sulfur',32.06),
+new Element('17','Cl','Chlorine',35.453),
+new Element('19','K','Potassium',39.098),
+new Element('18','Ar','Argon',39.948),
+new Element('20','Ca','Calcium',40.08),
+new Element('21','Sc','Scandium',44.956),
+new Element('22','Ti','Titanium',47.9),
+new Element('23','V','Vanadium',50.942),
+new Element('24','Cr','Chromium',51.996),
+new Element('25','Mn','Manganese',54.938),
+new Element('26','Fe','Iron',55.847),
+new Element('28','Ni','Nickel',58.7),
+new Element('27','Co','Cobalt',58.933),
+new Element('29','Cu','Copper',63.546),
+new Element('30','Zn','Zinc',65.38),
+new Element('31','Ga','Gallium',69.72),
+new Element('32','Ge','Germanium',72.59),
+new Element('33','As','Arsenic',74.922),
+new Element('34','Se','Selenium',78.96),
+new Element('35','Br','Bromine',79.904),
+new Element('36','Kr','Krypton',83.8),
+new Element('37','Rb','Rubidium',85.468),
+new Element('38','Sr','Strontium',87.62),
+new Element('39','Y','Yttrium',88.906),
+new Element('40','Zr','Zirconium',91.22),
+new Element('41','Nb','Niobium',92.906),
+new Element('42','Mo','Molybdenum',95.94),
+new Element('43','Tc','Technetium',98),
+new Element('44','Ru','Ruthenium',101.07),
+new Element('45','Rh','Rhodium',102.906),
+new Element('46','Pd','Palladium',106.4),
+new Element('47','Ag','Silver',107.868),
+new Element('48','Cd','Cadmium',112.41),
+new Element('49','In','Indium',114.82),
+new Element('50','Sn','Tin',118.69),
+new Element('51','Sb','Antimony',121.75),
+new Element('53','I','Iodine',126.905),
+new Element('52','Te','Tellurium',127.6),
+new Element('54','Xe','Xenon',131.3),
+new Element('55','Cs','Cesium',132.905),
+new Element('56','Ba','Barium',137.33),
+new Element('57','La','Lanthanum',138.906),
+new Element('58','Ce','Cerium',140.12),
+new Element('59','Pr','Praseodymium',140.908),
+new Element('60','Nd','Neodymium',144.24),
+new Element('61','Pm','Promethium',145),
+new Element('62','Sm','Samarium',150.4),
+new Element('63','Eu','Europium',151.96),
+new Element('64','Gd','Gadolinium',157.25),
+new Element('65','Tb','Terbium',158.925),
+new Element('66','Dy','Dysprosium',162.5),
+new Element('67','Ho','Holmium',164.93),
+new Element('68','Er','Erbium',167.26),
+new Element('69','Tm','Thulium',168.934),
+new Element('70','Yb','Ytterbium',173.04),
+new Element('71','Lu','Lutetium',174.967),
+new Element('72','Hf','Hafnium',178.49),
+new Element('73','Ta','Tantalum',180.948),
+new Element('74','W','Tungsten',183.85),
+new Element('75','Re','Rhenium',186.207),
+new Element('76','Os','Osmium',190.2),
+new Element('77','Ir','Iridium',192.22),
+new Element('78','Pt','Platinum',195.09),
+new Element('79','Au','Gold',196.967),
+new Element('80','Hg','Mercury',200.59),
+new Element('81','Tl','Thallium',204.37),
+new Element('82','Pb','Lead',207.2),
+new Element('83','Bi','Bismuth',208.98),
+new Element('84','Po','Polonium',209),
+new Element('85','At','Astatine',210),
+new Element('86','Rn','Radon',222),
+new Element('87','Fr','Francium',223),
+new Element('88','Ra','Radium',226.025),
+new Element('89','Ac','Actinium',227.028),
+new Element('91','Pa','Protactinium',231.036),
+new Element('90','Th','Thorium',232.038),
+new Element('93','Np','Neptunium',237.048),
+new Element('92','U','Uranium',238.029),
+new Element('94','Pu','Plutonium',242),
+new Element('95','Am','Americium',243),
+new Element('97','Bk','Berkelium',247),
+new Element('96','Cm','Curium',247),
+new Element('102','No','Nobelium',250),
+new Element('98','Cf','Californium',251),
+new Element('99','Es','Einsteinium',252),
+new Element('108','Hs','Hassium',255),
+new Element('109','Mt','Meitnerium',256),
+new Element('100','Fm','Fermium',257),
+new Element('101','Md','Mendelevium',258),
+new Element('103','Lr','Lawrencium',260),
+new Element('104','Rf','Rutherfordium',261),
+new Element('107','Bh','Bohrium',262),
+new Element('105','Db','Dubnium',262),
+new Element('106','Sg','Seaborgium',263),
+new Element('110','Uun','Ununnilium',269),
+new Element('111','Uuu','Unununium',272),
+new Element('112','Uub','Ununbiium',277),
+new Element('114','Uuq','Ununquadium',0)
+]
 
     function calculate() {
         var ct = document.getElementById('compound').value;
         var mole = document.getElementById('mole').value;
         var mass = document.getElementById('mass').value;
         var molecules= document.getElementById('molecules').value;
+
+        var atoms = elementDectection(ct);
         
-        var result = calculateMassAndPercent(elementDectection(ct));
+        
+        var result = calculateMassAndPercent(atoms);
+        console.log(atoms)
         
         console.log(result);
 
@@ -194,15 +321,47 @@
 
 
 
-        document.getElementById('show-compound').innerHTML = "Compound: "+ct;
+        document.getElementById('show-compound').innerHTML = "Symbol: "+ct;
+
+        document.getElementById('atom-name').innerHTML = "Name: "+Array.prototype.find.call(periodicTable,e=>e.symbol==ct).name;
         document.getElementById('one-mole').innerHTML = "1 mole = "+ result.total + " g";
         document.getElementById('one-gram').innerHTML = "1 gram = "+ (1/result.total).toFixed(4) + " mole";
+
         
-        var s = "";
+
+    // show infor
+     var sInfor="<div class='row' style='border-bottom: solid 1px;'>"
+     +"<p class='col-md-4'>element</p>"
+     +"<div class='col-md-4'>percent</div>"
+     +"<div class='col-md-4'>number of atoms</div>"
+     +"</div>"
+
+       Array.prototype.forEach.call(result.percentArray, e=>{
+
+            sInfor+="<div class='row'>"
+                    +"<p class='col-md-4'>"+e.element+"</p>"
+                    +"<div class='col-md-4'>"+e.percent+"</div>"
+                    +"<div class='col-md-4'>"+e.count+"</div>"
+                    +"</div>"
+                    })
+
+    document.getElementById('show-infor').innerHTML=sInfor;
+
+        
+    //show case
+    var s = "";
         Array.prototype.forEach.call(result.percentArray, e=>{
-            s+="<div class='col-md-2' >"+ e.element+ " </div>"+
-            "<div class='col-md-2'>"+e.percent+"</div>";
+              s+="<div class='col-md-2' >" +e.element+"</div>"                
+                +"<div class='col-md-2' >" +e.percent+" %</div>"               
+                +"<div class='col-md-2' >" +(e.percent*mass/100).toFixed(4)+" g</div>"
+                +"<div class='col-md-2' >" +(e.percent*result.total/100).toFixed(4)+"</div>"
+                +"<div class='col-md-2' >" +(e.percent*mole/100).toFixed(4)+"</div>"
+                +"<div class='col-md-2' >" +(e.percent*mole/100*6.022).toFixed(4)+"</div>";
         })
+
+
+
+
         
         document.getElementById('show-case').innerHTML=s;
         
@@ -224,18 +383,18 @@
         var percentArray = [];
 
         Array.prototype.forEach.call(aElement,e=>{
-            var a = periodicTable.filter(w=>w.name==e.element);
+            var a = periodicTable.filter(w=>w.symbol==e.element);
             total+=a[0].weight*e.count;            
         })
 
         
         Array.prototype.forEach.call(aElement,e=>{
 
-            var temp = periodicTable.find(w=>w.name==e.element);
+            var temp = periodicTable.find(w=>w.symbol==e.element);
 
             var percent = ((temp.weight*e.count)*100/total).toFixed(4);
 
-            percentArray.push({"element":e.element,"percent": percent})
+            percentArray.push({"element":e.element,"percent": percent,"count":e.count})
         })
 
         return {"total":total,"percentArray":percentArray};
