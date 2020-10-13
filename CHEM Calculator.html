@@ -1,91 +1,138 @@
-<!DOCTYPE html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <style>
-        .input-from{
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="wrapper">
+    <div class="title"><h2>CHEM Calculator</h2></div>
+
+    <div class=row>
+        <div class="card col-md-4" style="padding: 10px 10px 10px 10px;">
+            <div class="input-from">
+                <div class="form-group">
+                 <div class="row"> 
+                     <div class="col-md-4">
+                         <label for="Cong thuc">Compound</label>
+                     </div>       
+                     <div class="col-md-8">
+                         <input type="text" class="form-control" id="compound">
+                     <small class="form-text text-muted"> Example: H2O, Ca(OH)2</small>
+     
+                     </div>
+                 </div>
+
+                 <div class="row"> 
+                    <div class="col-md-4">
+                        <label for="Cong thuc">Mass</label>
+                    </div>       
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="mass">
+                    <small class="form-text text-muted"> g</small>
+    
+                    </div>
+                </div>
+     
+                 <div class="row"> 
+                     <div class="col-md-4">
+                         <label for="Cong thuc">Molecular weight</label>
+                     </div>       
+                     <div class="col-md-8">
+                         <input type="text" class="form-control" id="molecular-weight">
+                     <small class="form-text text-muted"> g/mol</small>
+     
+                     </div>
+                 </div>
+     
+                 <div class="row"> 
+                     <div class="col-md-4">
+                         <label for="Cong thuc">Moles</label>
+                     </div>       
+                     <div class="col-md-8">
+                         <input type="text" class="form-control" id="mole">
+                     <small class="form-text text-muted"> mol</small>
+     
+                     </div>
+                 </div>
+     
+                 <div class="row"> 
+                     <div class="col-md-4">
+                         <label for="Cong thuc">Molecules</label>
+                     </div>       
+                     <div class="col-md-8">
+                         <input type="text" class="form-control" id="molecules">
+                     <small class="form-text text-muted"> 6.022 x 10^23</small>
+     
+                     </div>
+                 </div>
+                    
+                 <button type="" class="btn btn-primary" onclick="calculate()">Submit</button>
+                 </div>
+     
+            </div>
+         </div>
+     
+         <div class="card col-md-8" style="border: solid 2px;">
+            <div class='row'>
+                <h4 class="col-md-12" id='show-compound'> Compound: xxxx</h4>
+                <div class="col-md-12" id='one-mole'> 1 mole = xxxx g</div>
+                <div class="col-md-12" id='one-gram'> 1 gram = xxxx  mole</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" > element</div>
+                <div class="col-md-2" > percent</div>
+                <div class="col-md-2" > number of atoms</div>
+                <div class="col-md-2" > mass of atom</div>
+                <div class="col-md-2" > weight of atom</div>
+            </div>
+            <div class='row' id='show-case'>
+
+            </div>
+
+                
             
-            padding-left: 20px;
             
-        }
-
-    </style>
-
-
-
-
-</head>
-
-
-<body>
-<container>
-    <div class="title"><h2>Chem Calculator</h2></div>
-
-
-    <div class="card" >
-       <form class="input-from">
-           <div class="form-group">
-            <div class="row"> 
-                <div class="col-md-4">
-                    <label for="Cong thuc">Cong thuc</label>
-                </div>       
-                <div class="col-md-4">
-                    <input type="text" class="form-control" id="cong-thuc" oninput="calculate()">
-                <small class="form-text text-muted"> Example: H2O, Ca(OH)2</small>
-
-                </div>
-            </div>
-
-            <div class="row"> 
-                <div class="col-md-6">
-                    <label for="Cong thuc">Molecular weight</label>
-                </div>       
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="molecular-weight">
-                <small class="form-text text-muted"> g/mol</small>
-
-                </div>
-            </div>
-
-            <div class="row"> 
-                <div class="col-md-6">
-                    <label for="Cong thuc">Moles</label>
-                </div>       
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="moles">
-                <small class="form-text text-muted"> mol</small>
-
-                </div>
-            </div>
-
-            <div class="row"> 
-                <div class="col-md-6">
-                    <label for="Cong thuc">Molecules</label>
-                </div>       
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="cong-thuc">
-                <small class="form-text text-muted"> 6.022 x 10^23</small>
-
-                </div>
-            </div>
-               
-            <button type="submit" class="btn btn-primary" onclick="calculate()">Submit</button>
-            </div>
-
-       </form>
+     
+         </div>
     </div>
-</container>
-
     
-
-</body>
-<footer></footer>
-
-    
+</div>
 
 
-<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+	<script>
 
     class Element {
         constructor(name,weight){
@@ -105,23 +152,71 @@
         new Element("Cl",35.45)]
 
     function calculate() {
-        var ct = document.getElementById('cong-thuc').value;
+        var ct = document.getElementById('compound').value;
+        var mole = document.getElementById('mole').value;
+        var mass = document.getElementById('mass').value;
+        var molecules= document.getElementById('molecules').value;
+        
+        var result = calculateMassAndPercent(elementDectection(ct));
+        
+        console.log(result);
 
-        console.log("ct : ",ct);
+        if(result.total)
+        {
+            document.getElementById('molecular-weight').value=result.total;
 
-        var a = "H";
-        var aa = elementDectection(ct)
+            if(!mole || mole =="0")
+            {
+                if(mass && mass !="0")
+                {
+                mole = (mass/result.total).toFixed(4);
+                document.getElementById('mole').value = mole;
+                }
+                else if(molecules && molecules != "0"){
+                    mole = molecules / 6.022
+                     document.getElementById('mole').value = mole;
+                }
+            }
+            if(!molecules || molecules=="0")
+            {
+                molecules = 6.022 * mole
+                document.getElementById('molecules').value = molecules;
+            }
+            if(!mass || mass=="0")
+            {
+                if(mole && mole !="0")
+                {
+                    mass = mole * result.total;
+                    document.getElementById('mass').value = mass;
+                }
+            }
+        }
 
-        var b = periodicTable.filter(w=>w.name=="Ca");
 
-        var ccc = calculateMassAndPercent(aa);
 
-        console.log(ccc);
+        document.getElementById('show-compound').innerHTML = "Compound: "+ct;
+        document.getElementById('one-mole').innerHTML = "1 mole = "+ result.total + " g";
+        document.getElementById('one-gram').innerHTML = "1 gram = "+ (1/result.total).toFixed(4) + " mole";
+        
+        var s = "";
+        Array.prototype.forEach.call(result.percentArray, e=>{
+            s+="<div class='col-md-2' >"+ e.element+ " </div>"+
+            "<div class='col-md-2'>"+e.percent+"</div>";
+        })
+        
+        document.getElementById('show-case').innerHTML=s;
+        
         
 
+        // molecular-weight calculator
+       
         
 
     }
+
+
+
+
 
     function calculateMassAndPercent(aElement)
     {
@@ -236,3 +331,7 @@
 
 
 </script>
+	
+	
+  </body>
+</html>
