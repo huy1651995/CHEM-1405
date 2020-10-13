@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <style>
+        .input-from{
+            
+            padding-left: 20px;
+            
+        }
+
+    </style>
+
+
+
+
+</head>
+
+
+<body>
+<container>
+    <div class="title"><h2>Chem Calculator</h2></div>
+
+
+    <div class="card" >
+       <form class="input-from">
+           <div class="form-group">
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="Cong thuc">Cong thuc</label>
+                </div>       
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="cong-thuc" oninput="calculate()">
+                <small class="form-text text-muted"> Example: H2O, Ca(OH)2</small>
+
+                </div>
+            </div>
+
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="Cong thuc">Molecular weight</label>
+                </div>       
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="molecular-weight">
+                <small class="form-text text-muted"> g/mol</small>
+
+                </div>
+            </div>
+
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="Cong thuc">Moles</label>
+                </div>       
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="moles">
+                <small class="form-text text-muted"> mol</small>
+
+                </div>
+            </div>
+
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="Cong thuc">Molecules</label>
+                </div>       
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="cong-thuc">
+                <small class="form-text text-muted"> 6.022 x 10^23</small>
+
+                </div>
+            </div>
+               
+            <button type="submit" class="btn btn-primary" onclick="calculate()">Submit</button>
+            </div>
+
+       </form>
+    </div>
+</container>
+
+    
+
+</body>
+<footer></footer>
+
+    
+
+
+<script>
+
+    var periodicTable = {
+            "Ca":20,
+            "O":14.999,
+            "H":1.008
+    }
+
+    function calculate() {
+        var ct = document.getElementById('cong-thuc').value;
+
+        console.log("ct : ",ct);
+
+        var a = "H";
+        var aa = elementDectection("Ca3(PO4)2")
+        console.log(aa);
+
+    }
+    function MolecularWeight(formula) {
+
+        var result =[];
+
+        if(formula)
+         {
+            var onHold =[];
+            var index = 1;
+            var isOpen = false;
+
+            Array.prototype.forEach.call(formula,async e=>{                
+                console.log(e);
+                if(e.match(/[A-Z]/))
+                {
+                    if(onHold && isOpen == false)
+                    {
+                        console.log("Push");
+                        Array.prototype.forEach.call(onHold, el =>{
+                            result.push({
+                                "element":el,
+                                "index":index
+                            })
+                        })
+                        onHold=[];
+                        index=1;
+                    }
+                        
+                   await onHold.push(e);
+                   
+                    
+                }else if(e.match(/[a-z]/))
+                {
+                    console.log("a-z:" + e);
+                    
+                    onHold[onHold.length-1] +=e;
+                    
+
+                }else if(e.match(/[0-9]/)){
+                    console.log("number:" +e);
+                  index=e;
+                }
+                else if(e =="(")
+                {
+                    if(onHold && isOpen == false)
+                    {
+                        console.log("Push");
+                        Array.prototype.forEach.call(onHold, el =>{
+                            result.push({
+                                "element":el,
+                                "index":index
+                            })
+                        })
+                        onHold=[];
+                        index=1;
+                    } 
+
+                    isOpen = true;
+                }
+                else if(e==")")
+                {   ifOpen =false}
+
+                
+
+                // Push all of element exited on onHold to result
+                
+
+
+            })
+
+            if(onHold)
+                {
+                    console.log("vo trong ne");
+                    console.log(onHold);
+                    Array.prototype.forEach.call(onHold, el =>{
+                        console.log("index:"+index)
+                            result.push({
+                                "element":el,
+                                "index":index
+                            })
+                        })
+                        onHold=[];
+                }
+
+
+            console.log(result);
+            return result;
+            //return formula.split(/(?=[A-Z][0-9])/);
+            //return formula.match(/[A-Z][a-z]+/g);
+         }  else
+            return [];
+            
+       
+    }
+
+    function elementDectection(formula){
+        var a = formula.split(/(?=[A-Z]|[0-9])/);
+        console.log(a);
+    }
+
+
+</script>
