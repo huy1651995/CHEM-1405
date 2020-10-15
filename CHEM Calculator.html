@@ -15,60 +15,58 @@
     <div class="title"><h2>CHEM Calculator</h2></div>
 
     <div class=row>
-        <div class="card col-md-4" style="padding: 10px 10px 10px 10px;">
+        <div class="card col-md-4" >
             <div class="input-from">
                 <div class="form-group">
-                 <div class="row"> 
+                 <div class="row" style="margin:10px;"> 
                      <div class="col-md-4">
-                         <label for="Cong thuc">Compound</label>
+                         <label >Compound</label>
                      </div>       
                      <div class="col-md-8">
-                         <input type="text" class="form-control" id="compound">
-                     <small class="form-text text-muted"> Example: H2O, Ca(OH)2</small>
-     
+                         <input type="text" class="form-control" id="compound" placeholder="Example: H2O, Ca(OH)2">
+                          
                      </div>
                  </div>
 
-                 <div class="row"> 
+                 <div class="row" style="margin:10px;"> 
                     <div class="col-md-4">
-                        <label for="Cong thuc">Molar Mass</label>
+                        <label >Mass</label>
                     </div>       
                     <div class="col-md-8">
-                        <input type="text" class="form-control" id="mass">
-                    <small class="form-text text-muted"> g</small>
+                        <input type="text" class="form-control" id="mass" placeholder="gram (g)">
+                    
     
                     </div>
                 </div>
      
-                 <div class="row"> 
+                 <div class="row" style="margin:10px;"> 
                      <div class="col-md-4">
-                         <label for="Cong thuc">Molecular weight</label>
+                         <label >Molar Mass</label>
                      </div>       
                      <div class="col-md-8">
-                         <input type="text" class="form-control" id="molecular-weight">
-                     <small class="form-text text-muted"> g/mol</small>
+                         <input type="text" class="form-control" id="molecular-weight" placeholder="g/mol">
+                     
      
                      </div>
                  </div>
      
-                 <div class="row"> 
+                 <div class="row" style="margin:10px;"> 
                      <div class="col-md-4">
-                         <label for="Cong thuc">Moles</label>
+                         <label  >Moles</label>
                      </div>       
                      <div class="col-md-8">
-                         <input type="text" class="form-control" id="mole">
-                     <small class="form-text text-muted"> mol</small>
-     
+                         <input type="text" class="form-control" id="mole" placeholder="mol">
+                          
                      </div>
                  </div>
      
-                 <div class="row"> 
+                 <div class="row" style="margin:10px;"> 
                      <div class="col-md-4">
-                         <label for="Cong thuc">Molecules</label>
+                         <label >Molecules</label>
                      </div>       
                      <div class="col-md-8">
-                         <input type="text" class="form-control" id="molecules">
-                     <small class="form-text text-muted"> 6.022 x 10^23</small>
+                         <input type="text" class="form-control" id="molecules" placeholder="6.022 x 10^23">
+                     
      
                      </div>
                  </div>
@@ -106,7 +104,7 @@
                 <div class="col-md-2" > Element</div>                
                 <div class="col-md-2" > Percent</div>                
                 <div class="col-md-2" > Mass of atom</div>
-                <div class="col-md-2" > Weight of atom</div>
+                <div class="col-md-2" > Weight</div>
                 <div class="col-md-2" > Mole of atom</div>
                 <div class="col-md-2" > Molecules of atom</div>
             </div>
@@ -290,31 +288,31 @@ new Element('114','Uuq','Ununquadium',0)
 
         if(result.total)
         {
-            document.getElementById('molecular-weight').value=result.total;
+            document.getElementById('molecular-weight').value=(result.total).toFixed(3);
 
             if(!mole || mole =="0")
             {
                 if(mass && mass !="0")
                 {
-                mole = (mass/result.total).toFixed(4);
-                document.getElementById('mole').value = mole;
+                mole = (mass/result.total);
+                document.getElementById('mole').value = mole.toFixed(3);
                 }
                 else if(molecules && molecules != "0"){
                     mole = molecules / 6.022
-                     document.getElementById('mole').value = mole;
+                     document.getElementById('mole').value = mole.toFixed(3);
                 }
             }
             if(!molecules || molecules=="0")
             {
-                molecules = 6.022 * mole
-                document.getElementById('molecules').value = molecules;
+                molecules = 6.022 * mole;
+                document.getElementById('molecules').value = molecules.toFixed(3);
             }
             if(!mass || mass=="0")
             {
                 if(mole && mole !="0")
                 {
                     mass = mole * result.total;
-                    document.getElementById('mass').value = mass;
+                    document.getElementById('mass').value = mass.toFixed(3);
                 }
             }
         }
@@ -325,23 +323,25 @@ new Element('114','Uuq','Ununquadium',0)
 
         //document.getElementById('atom-name').innerHTML = "Name: "+Array.prototype.find.call(periodicTable,e=>e.symbol==ct).name;
         document.getElementById('one-mole').innerHTML = "1 mole = "+ result.total + " g";
-        document.getElementById('one-gram').innerHTML = "1 gram = "+ (1/result.total).toFixed(4) + " mole";
+        document.getElementById('one-gram').innerHTML = "1 gram = "+ (1/result.total).toFixed(3) + " mole";
 
         
 
     // show infor
      var sInfor="<div class='row' style='border-bottom: solid 1px;'>"
-     +"<p class='col-md-4'>element</p>"
-     +"<div class='col-md-4'>percent</div>"
-     +"<div class='col-md-4'>number of atoms</div>"
+     +"<p class='col-md-3'>Element</p>"
+     +"<div class='col-md-3'>Atomic Weight</div>"
+     +"<div class='col-md-3'>Percent</div>"
+     +"<div class='col-md-3'>Number of atoms</div>"
      +"</div>"
 
        Array.prototype.forEach.call(result.percentArray, e=>{
 
             sInfor+="<div class='row'>"
-                    +"<p class='col-md-4'>"+e.element+"</p>"
-                    +"<div class='col-md-4'>"+e.percent+"</div>"
-                    +"<div class='col-md-4'>"+e.count+"</div>"
+                    +"<p class='col-md-3'>"+e.element+"</p>"
+                    +"<p class='col-md-3'>"+e.atomicWeight+" u</p>"
+                    +"<div class='col-md-3'>"+e.percent+" %</div>"
+                    +"<div class='col-md-3'>"+e.count+"</div>"
                     +"</div>"
                     })
 
@@ -353,10 +353,10 @@ new Element('114','Uuq','Ununquadium',0)
         Array.prototype.forEach.call(result.percentArray, e=>{
               s+="<div class='col-md-2' >" +e.element+"</div>"                
                 +"<div class='col-md-2' >" +e.percent+" %</div>"               
-                +"<div class='col-md-2' >" +(e.percent*mass/100).toFixed(4)+" g</div>"
-                +"<div class='col-md-2' >" +(e.percent*result.total/100).toFixed(4)+"</div>"
-                +"<div class='col-md-2' >" +(e.percent*mole/100).toFixed(4)+"</div>"
-                +"<div class='col-md-2' >" +(e.percent*mole/100*6.022).toFixed(4)+"</div>";
+                +"<div class='col-md-2' >" +(e.percent*mass/100).toFixed(3)+" g</div>"
+                +"<div class='col-md-2' >" +(e.percent*result.total/100).toFixed(3)+" u</div>"
+                +"<div class='col-md-2' >" +(e.count*mole).toFixed(3)+" mol</div>"
+                +"<div class='col-md-2' >" +(e.count*mole*6.022).toFixed(3)+" x10^23</div>";
         })
 
 
@@ -392,9 +392,9 @@ new Element('114','Uuq','Ununquadium',0)
 
             var temp = periodicTable.find(w=>w.symbol==e.element);
 
-            var percent = ((temp.weight*e.count)*100/total).toFixed(4);
+            var percent = ((temp.weight*e.count)*100/total). toFixed(2);
 
-            percentArray.push({"element":e.element,"percent": percent,"count":e.count})
+            percentArray.push({"element":e.element,"percent": percent,"count":e.count,"atomicWeight":temp.weight})
         })
 
         return {"total":total,"percentArray":percentArray};
